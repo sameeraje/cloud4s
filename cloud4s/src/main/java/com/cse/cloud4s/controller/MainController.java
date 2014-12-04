@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = { "/" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/","welcome" }, method = RequestMethod.GET)
     public ModelAndView defaultPage() {
 
         ModelAndView model = new ModelAndView();
@@ -27,7 +27,7 @@ public class MainController {
 
     }
 
-    @RequestMapping(value = { "/welcome**" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/selection**" }, method = RequestMethod.GET)
     public ModelAndView selectionPage() {
 
         ModelAndView model = new ModelAndView();

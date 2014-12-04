@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="sec"
+          uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 
 <head>
@@ -15,6 +19,56 @@
     <link href="css/sb-admin.css" rel="stylesheet">
     <link href="css/plugins/morris.css" rel="stylesheet">
     <link href="fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script src='<c:url value="/js/dropdown.js" />' type="text/javascript"></script>
+
+
+    <sec:authorize access="hasRole('ROLE_USER')">
+        <!-- For login user -->
+        <c:url value="/j_spring_security_logout" var="logoutUrl" />
+        <form action="${logoutUrl}" method="post" id="logoutForm">
+            <input type="hidden" name="${_csrf.parameterName}"
+                   value="${_csrf.token}" />
+        </form>
+        <script>
+            function formSubmit() {
+                document.getElementById("logoutForm").submit();
+            }
+        </script>
+
+    </sec:authorize>
+
+    <script>
+        var dropdown = document.querySelectorAll('.dropdown');
+        var dropdownArray = Array.prototype.slice.call(dropdown,0);
+        dropdownArray.forEach(function(el){
+            var button = el.querySelector('a[data-toggle="dropdown"]'),
+                    menu = el.querySelector('.dropdown-menu'),
+                    arrow = button.querySelector('i.icon-arrow');
+
+            button.onclick = function(event) {
+                if(!menu.hasClass('show')) {
+                    menu.classList.add('show');
+                    menu.classList.remove('hide');
+                    arrow.classList.add('open');
+                    arrow.classList.remove('close');
+                    event.preventDefault();
+                }
+                else {
+                    menu.classList.remove('show');
+                    menu.classList.add('hide');
+                    arrow.classList.remove('open');
+                    arrow.classList.add('close');
+                    event.preventDefault();
+                }
+            };
+        })
+
+        Element.prototype.hasClass = function(className) {
+            return this.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(this.className);
+        };
+
+    </script>
 
 </head>
 
@@ -35,9 +89,12 @@
         </div>
 
         <!-- User dropdown - top menu -->
+    <c:if test="${pageContext.request.userPrincipal.name != null}">
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+                 ${pageContext.request.userPrincipal.name}
+                 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -50,12 +107,12 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        <a href="javascript:formSubmit()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                     </li>
                 </ul>
             </li>
         </ul>
-
+    </c:if>
         <!-- Sidebar Menu Items  -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
@@ -165,12 +222,6 @@
     </div>
 </div>
 
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
-<script src="js/plugins/morris/raphael.min.js"></script>
-<script src="js/plugins/morris/morris.min.js"></script>
-<script src="js/plugins/morris/morris-data.js"></script>
 
 </body>
 
@@ -182,12 +233,4 @@
   Time: 8:25 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
 
-</body>
-</html>
