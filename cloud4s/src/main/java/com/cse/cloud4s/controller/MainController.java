@@ -16,13 +16,33 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/" }, method = RequestMethod.GET)
     public ModelAndView defaultPage() {
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Login Form - Database Authentication");
         model.addObject("message", "This is default page!");
         model.setViewName("hello");
+        return model;
+
+    }
+
+    @RequestMapping(value = { "/welcome**" }, method = RequestMethod.GET)
+    public ModelAndView selectionPage() {
+
+        ModelAndView model = new ModelAndView();
+
+        model.setViewName("selection");
+        return model;
+
+    }
+
+    @RequestMapping(value = { "/dashboard**" }, method = RequestMethod.GET)
+    public ModelAndView dashboardPage() {
+
+        ModelAndView model = new ModelAndView();
+
+        model.setViewName("dashboard");
         return model;
 
     }

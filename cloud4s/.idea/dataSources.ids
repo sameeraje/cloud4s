@@ -24,4 +24,7 @@
       <exported-key name="fk_username" table="user_roles" schema="" catalog="cloud4s" columns="username"/>
     </table>
   </data-source>
+  <data-source source="LOCAL" name="MySQL - @localhost" uuid="96958a26-6506-4147-9ea1-87b388d740c6">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
 </component>

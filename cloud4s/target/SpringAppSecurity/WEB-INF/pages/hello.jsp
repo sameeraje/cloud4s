@@ -13,7 +13,7 @@
 <body>
 <h1>Title : ${title}</h1>
 <h1>Message : ${message}</h1>
-
+<a href="/login">Login</a>
 <sec:authorize access="hasRole('ROLE_USER')">
     <!-- For login user -->
     <c:url value="/j_spring_security_logout" var="logoutUrl" />
@@ -33,7 +33,7 @@
                 href="javascript:formSubmit()"> Logout</a>
         </h2>
     </c:if>
-
+    <a href="http://www.w3schools.com">Visit W3Schools.com!</a>
 
 </sec:authorize>
 </body>
